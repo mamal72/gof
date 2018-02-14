@@ -265,12 +265,7 @@ func (g *Goff) Copy(sourcePath, destinationPath string) error {
 
 // Move moves a file
 func (g *Goff) Move(sourcePath, destinationPath string) error {
-	err := g.Copy(sourcePath, destinationPath)
-	if err != nil {
-		return err
-	}
-
-	return g.Rm(sourcePath)
+	return g.Rename(sourcePath, destinationPath)
 }
 
 // Stat returns stat of a file
