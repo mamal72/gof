@@ -98,13 +98,12 @@ func TestErrDirectoryAlreadyExists_Error(t *testing.T) {
 	}
 }
 
-func Test_gof_Read(t *testing.T) {
+func TestRead(t *testing.T) {
 	type args struct {
 		path string
 	}
 	tests := []struct {
 		name    string
-		g       *gof
 		args    args
 		want    string
 		wantErr bool
@@ -113,27 +112,25 @@ func Test_gof_Read(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			g := &gof{}
-			got, err := g.Read(tt.args.path)
+			got, err := Read(tt.args.path)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("gof.Read() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("Read() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if got != tt.want {
-				t.Errorf("gof.Read() = %v, want %v", got, tt.want)
+				t.Errorf("Read() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func Test_gof_Write(t *testing.T) {
+func TestWrite(t *testing.T) {
 	type args struct {
 		path    string
 		content string
 	}
 	tests := []struct {
 		name    string
-		g       *gof
 		args    args
 		wantErr bool
 	}{
@@ -141,22 +138,20 @@ func Test_gof_Write(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			g := &gof{}
-			if err := g.Write(tt.args.path, tt.args.content); (err != nil) != tt.wantErr {
-				t.Errorf("gof.Write() error = %v, wantErr %v", err, tt.wantErr)
+			if err := Write(tt.args.path, tt.args.content); (err != nil) != tt.wantErr {
+				t.Errorf("Write() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
 }
 
-func Test_gof_Append(t *testing.T) {
+func TestAppend(t *testing.T) {
 	type args struct {
 		path    string
 		content string
 	}
 	tests := []struct {
 		name    string
-		g       *gof
 		args    args
 		wantErr bool
 	}{
@@ -164,22 +159,20 @@ func Test_gof_Append(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			g := &gof{}
-			if err := g.Append(tt.args.path, tt.args.content); (err != nil) != tt.wantErr {
-				t.Errorf("gof.Append() error = %v, wantErr %v", err, tt.wantErr)
+			if err := Append(tt.args.path, tt.args.content); (err != nil) != tt.wantErr {
+				t.Errorf("Append() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
 }
 
-func Test_gof_Prepend(t *testing.T) {
+func TestPrepend(t *testing.T) {
 	type args struct {
 		path    string
 		content string
 	}
 	tests := []struct {
 		name    string
-		g       *gof
 		args    args
 		wantErr bool
 	}{
@@ -187,21 +180,19 @@ func Test_gof_Prepend(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			g := &gof{}
-			if err := g.Prepend(tt.args.path, tt.args.content); (err != nil) != tt.wantErr {
-				t.Errorf("gof.Prepend() error = %v, wantErr %v", err, tt.wantErr)
+			if err := Prepend(tt.args.path, tt.args.content); (err != nil) != tt.wantErr {
+				t.Errorf("Prepend() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
 }
 
-func Test_gof_Exists(t *testing.T) {
+func TestExists(t *testing.T) {
 	type args struct {
 		path string
 	}
 	tests := []struct {
 		name    string
-		g       *gof
 		args    args
 		want    bool
 		wantErr bool
@@ -210,26 +201,24 @@ func Test_gof_Exists(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			g := &gof{}
-			got, err := g.Exists(tt.args.path)
+			got, err := Exists(tt.args.path)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("gof.Exists() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("Exists() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if got != tt.want {
-				t.Errorf("gof.Exists() = %v, want %v", got, tt.want)
+				t.Errorf("Exists() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func Test_gof_FileExists(t *testing.T) {
+func TestFileExists(t *testing.T) {
 	type args struct {
 		path string
 	}
 	tests := []struct {
 		name    string
-		g       *gof
 		args    args
 		want    bool
 		wantErr bool
@@ -238,27 +227,25 @@ func Test_gof_FileExists(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			g := &gof{}
-			got, err := g.FileExists(tt.args.path)
+			got, err := FileExists(tt.args.path)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("gof.FileExists() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("FileExists() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if got != tt.want {
-				t.Errorf("gof.FileExists() = %v, want %v", got, tt.want)
+				t.Errorf("FileExists() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func Test_gof_DirectoryExists(t *testing.T) {
+func TestDirectoryExists(t *testing.T) {
 	type args struct {
 		path    string
 		content string
 	}
 	tests := []struct {
 		name    string
-		g       *gof
 		args    args
 		want    bool
 		wantErr bool
@@ -267,26 +254,24 @@ func Test_gof_DirectoryExists(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			g := &gof{}
-			got, err := g.DirectoryExists(tt.args.path, tt.args.content)
+			got, err := DirectoryExists(tt.args.path, tt.args.content)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("gof.DirectoryExists() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("DirectoryExists() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if got != tt.want {
-				t.Errorf("gof.DirectoryExists() = %v, want %v", got, tt.want)
+				t.Errorf("DirectoryExists() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func Test_gof_Mkdir(t *testing.T) {
+func TestMkdir(t *testing.T) {
 	type args struct {
 		path string
 	}
 	tests := []struct {
 		name    string
-		g       *gof
 		args    args
 		wantErr bool
 	}{
@@ -294,21 +279,19 @@ func Test_gof_Mkdir(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			g := &gof{}
-			if err := g.Mkdir(tt.args.path); (err != nil) != tt.wantErr {
-				t.Errorf("gof.Mkdir() error = %v, wantErr %v", err, tt.wantErr)
+			if err := Mkdir(tt.args.path); (err != nil) != tt.wantErr {
+				t.Errorf("Mkdir() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
 }
 
-func Test_gof_Create(t *testing.T) {
+func TestCreate(t *testing.T) {
 	type args struct {
 		path string
 	}
 	tests := []struct {
 		name    string
-		g       *gof
 		args    args
 		wantErr bool
 	}{
@@ -316,21 +299,19 @@ func Test_gof_Create(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			g := &gof{}
-			if err := g.Create(tt.args.path); (err != nil) != tt.wantErr {
-				t.Errorf("gof.Create() error = %v, wantErr %v", err, tt.wantErr)
+			if err := Create(tt.args.path); (err != nil) != tt.wantErr {
+				t.Errorf("Create() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
 }
 
-func Test_gof_Touch(t *testing.T) {
+func TestTouch(t *testing.T) {
 	type args struct {
 		path string
 	}
 	tests := []struct {
 		name    string
-		g       *gof
 		args    args
 		wantErr bool
 	}{
@@ -338,21 +319,19 @@ func Test_gof_Touch(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			g := &gof{}
-			if err := g.Touch(tt.args.path); (err != nil) != tt.wantErr {
-				t.Errorf("gof.Touch() error = %v, wantErr %v", err, tt.wantErr)
+			if err := Touch(tt.args.path); (err != nil) != tt.wantErr {
+				t.Errorf("Touch() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
 }
 
-func Test_gof_Rm(t *testing.T) {
+func TestRm(t *testing.T) {
 	type args struct {
 		path string
 	}
 	tests := []struct {
 		name    string
-		g       *gof
 		args    args
 		wantErr bool
 	}{
@@ -360,44 +339,19 @@ func Test_gof_Rm(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			g := &gof{}
-			if err := g.Rm(tt.args.path); (err != nil) != tt.wantErr {
-				t.Errorf("gof.Rm() error = %v, wantErr %v", err, tt.wantErr)
+			if err := Rm(tt.args.path); (err != nil) != tt.wantErr {
+				t.Errorf("Rm() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
 }
 
-func Test_gof_Chmod(t *testing.T) {
-	type args struct {
-		path string
-		mode os.FileMode
-	}
-	tests := []struct {
-		name    string
-		g       *gof
-		args    args
-		wantErr bool
-	}{
-	// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			g := &gof{}
-			if err := g.Chmod(tt.args.path, tt.args.mode); (err != nil) != tt.wantErr {
-				t.Errorf("gof.Chmod() error = %v, wantErr %v", err, tt.wantErr)
-			}
-		})
-	}
-}
-
-func Test_gof_IsDirectory(t *testing.T) {
+func TestIsDirectory(t *testing.T) {
 	type args struct {
 		path string
 	}
 	tests := []struct {
 		name    string
-		g       *gof
 		args    args
 		want    bool
 		wantErr bool
@@ -406,26 +360,24 @@ func Test_gof_IsDirectory(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			g := &gof{}
-			got, err := g.IsDirectory(tt.args.path)
+			got, err := IsDirectory(tt.args.path)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("gof.IsDirectory() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("IsDirectory() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if got != tt.want {
-				t.Errorf("gof.IsDirectory() = %v, want %v", got, tt.want)
+				t.Errorf("IsDirectory() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func Test_gof_IsFile(t *testing.T) {
+func TestIsFile(t *testing.T) {
 	type args struct {
 		path string
 	}
 	tests := []struct {
 		name    string
-		g       *gof
 		args    args
 		want    bool
 		wantErr bool
@@ -434,27 +386,25 @@ func Test_gof_IsFile(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			g := &gof{}
-			got, err := g.IsFile(tt.args.path)
+			got, err := IsFile(tt.args.path)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("gof.IsFile() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("IsFile() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if got != tt.want {
-				t.Errorf("gof.IsFile() = %v, want %v", got, tt.want)
+				t.Errorf("IsFile() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func Test_gof_Rename(t *testing.T) {
+func TestRename(t *testing.T) {
 	type args struct {
 		oldPath string
 		newPath string
 	}
 	tests := []struct {
 		name    string
-		g       *gof
 		args    args
 		wantErr bool
 	}{
@@ -462,22 +412,20 @@ func Test_gof_Rename(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			g := &gof{}
-			if err := g.Rename(tt.args.oldPath, tt.args.newPath); (err != nil) != tt.wantErr {
-				t.Errorf("gof.Rename() error = %v, wantErr %v", err, tt.wantErr)
+			if err := Rename(tt.args.oldPath, tt.args.newPath); (err != nil) != tt.wantErr {
+				t.Errorf("Rename() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
 }
 
-func Test_gof_Copy(t *testing.T) {
+func TestCopy(t *testing.T) {
 	type args struct {
 		sourcePath      string
 		destinationPath string
 	}
 	tests := []struct {
 		name    string
-		g       *gof
 		args    args
 		wantErr bool
 	}{
@@ -485,22 +433,20 @@ func Test_gof_Copy(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			g := &gof{}
-			if err := g.Copy(tt.args.sourcePath, tt.args.destinationPath); (err != nil) != tt.wantErr {
-				t.Errorf("gof.Copy() error = %v, wantErr %v", err, tt.wantErr)
+			if err := Copy(tt.args.sourcePath, tt.args.destinationPath); (err != nil) != tt.wantErr {
+				t.Errorf("Copy() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
 }
 
-func Test_gof_Move(t *testing.T) {
+func TestMove(t *testing.T) {
 	type args struct {
 		sourcePath      string
 		destinationPath string
 	}
 	tests := []struct {
 		name    string
-		g       *gof
 		args    args
 		wantErr bool
 	}{
@@ -508,21 +454,19 @@ func Test_gof_Move(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			g := &gof{}
-			if err := g.Move(tt.args.sourcePath, tt.args.destinationPath); (err != nil) != tt.wantErr {
-				t.Errorf("gof.Move() error = %v, wantErr %v", err, tt.wantErr)
+			if err := Move(tt.args.sourcePath, tt.args.destinationPath); (err != nil) != tt.wantErr {
+				t.Errorf("Move() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
 }
 
-func Test_gof_Stat(t *testing.T) {
+func TestStat(t *testing.T) {
 	type args struct {
 		path string
 	}
 	tests := []struct {
 		name    string
-		g       *gof
 		args    args
 		want    os.FileInfo
 		wantErr bool
@@ -531,14 +475,13 @@ func Test_gof_Stat(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			g := &gof{}
-			got, err := g.Stat(tt.args.path)
+			got, err := Stat(tt.args.path)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("gof.Stat() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("Stat() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("gof.Stat() = %v, want %v", got, tt.want)
+				t.Errorf("Stat() = %v, want %v", got, tt.want)
 			}
 		})
 	}

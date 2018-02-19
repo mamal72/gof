@@ -7,13 +7,6 @@ import (
 	"os"
 )
 
-// Goff is main struct type containing all the functions,
-// exposed for documentation generation purposes
-type Goff struct{}
-
-// Gof is the main exposed Goff instance containing all the functions
-var Gof Goff
-
 // ErrFileNotExists raises when the file does not exists
 type ErrFileNotExists struct {
 	path string
@@ -51,8 +44,8 @@ func (e ErrDirectoryAlreadyExists) Error() string {
 }
 
 // Read returns content of a file
-func (g *Goff) Read(path string) (string, error) {
-	exists, err := g.Exists(path)
+func Read(path string) (string, error) {
+	exists, err := Exists(path)
 	if err != nil {
 		return "", err
 	}
@@ -69,8 +62,8 @@ func (g *Goff) Read(path string) (string, error) {
 }
 
 // Write writes content to a file
-func (g *Goff) Write(path, content string) error {
-	exists, err := g.Exists(path)
+func Write(path, content string) error {
+	exists, err := Exists(path)
 	if err != nil {
 		return err
 	}
@@ -82,27 +75,27 @@ func (g *Goff) Write(path, content string) error {
 }
 
 // Append appends content to the end of a file
-func (g *Goff) Append(path, content string) error {
-	data, err := g.Read(path)
+func Append(path, content string) error {
+	data, err := Read(path)
 	if err != nil {
 		return err
 	}
 	data = data + content
-	return g.Write(path, data)
+	return Write(path, data)
 }
 
 // Prepend prepends content to the start of a file
-func (g *Goff) Prepend(path, content string) error {
-	data, err := g.Read(path)
+func Prepend(path, content string) error {
+	data, err := Read(path)
 	if err != nil {
 		return err
 	}
 	data = content + data
-	return g.Write(path, data)
+	return Write(path, data)
 }
 
 // Exists returns true if the given path (file or directory) exists
-func (g *Goff) Exists(path string) (bool, error) {
+func Exists(path string) (bool, error) {
 	_, err := os.Stat(path)
 	if os.IsNotExist(err) {
 		return false, nil
@@ -113,18 +106,18 @@ func (g *Goff) Exists(path string) (bool, error) {
 }
 
 // FileExists returns true if the given file path exists
-func (g *Goff) FileExists(path string) (bool, error) {
-	return g.IsFile(path)
+func FileExists(path string) (bool, error) {
+	return IsFile(path)
 }
 
 // DirectoryExists returns true if the path exists
-func (g *Goff) DirectoryExists(path, content string) (bool, error) {
-	return g.IsDirectory(path)
+func DirectoryExists(path, content string) (bool, error) {
+	return IsDirectory(path)
 }
 
 // Mkdir creates a directory
-func (g *Goff) Mkdir(path string) error {
-	exists, err := g.Exists(path)
+func Mkdir(path string) error {
+	exists, err := Exists(path)
 	if err != nil {
 		return err
 	}
@@ -137,8 +130,8 @@ func (g *Goff) Mkdir(path string) error {
 }
 
 // Create creates a file
-func (g *Goff) Create(path string) error {
-	exists, err := g.Exists(path)
+func Create(path string) error {
+	exists, err := Exists(path)
 	if err != nil {
 		return err
 	}
@@ -152,15 +145,15 @@ func (g *Goff) Create(path string) error {
 }
 
 // Touch touches a file
-func (g *Goff) Touch(path string) error {
+func Touch(path string) error {
 	file, err := os.OpenFile(path, os.O_RDONLY|os.O_CREATE, 0644)
 	defer file.Close()
 	return err
 }
 
 // Rm deletes a file or directory
-func (g *Goff) Rm(path string) error {
-	exists, err := g.Exists(path)
+func Rm(path string) error {
+	exists, err := Exists(path)
 	if err != nil {
 		return err
 	}
@@ -172,13 +165,13 @@ func (g *Goff) Rm(path string) error {
 }
 
 // IsDirectory returns true if the path is a directory
-func (g *Goff) IsDirectory(path string) (bool, error) {
-	exists, err := g.Exists(path)
+func IsDirectory(path string) (bool, error) {
+	exists, err := Exists(path)
 	if err != nil || !exists {
 		return false, err
 	}
 
-	stat, err := g.Stat(path)
+	stat, err := Stat(path)
 	if err != nil {
 		return false, err
 	}
@@ -189,13 +182,13 @@ func (g *Goff) IsDirectory(path string) (bool, error) {
 }
 
 // IsFile returns true if the path is a file
-func (g *Goff) IsFile(path string) (bool, error) {
-	exists, err := g.Exists(path)
+func IsFile(path string) (bool, error) {
+	exists, err := Exists(path)
 	if err != nil || !exists {
 		return false, err
 	}
 
-	stat, err := g.Stat(path)
+	stat, err := Stat(path)
 	if err != nil {
 		return false, err
 	}
@@ -206,8 +199,8 @@ func (g *Goff) IsFile(path string) (bool, error) {
 }
 
 // Rename renames a file
-func (g *Goff) Rename(oldPath, newPath string) error {
-	oldExists, err := g.Exists(oldPath)
+func Rename(oldPath, newPath string) error {
+	oldExists, err := Exists(oldPath)
 	if err != nil {
 		return err
 	}
@@ -215,7 +208,7 @@ func (g *Goff) Rename(oldPath, newPath string) error {
 		return ErrFileNotExists{oldPath}
 	}
 
-	newExists, err := g.Exists(newPath)
+	newExists, err := Exists(newPath)
 	if err != nil {
 		return err
 	}
@@ -227,8 +220,8 @@ func (g *Goff) Rename(oldPath, newPath string) error {
 }
 
 // Copy copies a file
-func (g *Goff) Copy(sourcePath, destinationPath string) error {
-	sourceExists, err := g.Exists(sourcePath)
+func Copy(sourcePath, destinationPath string) error {
+	sourceExists, err := Exists(sourcePath)
 	if err != nil {
 		return err
 	}
@@ -236,7 +229,7 @@ func (g *Goff) Copy(sourcePath, destinationPath string) error {
 		return ErrFileNotExists{sourcePath}
 	}
 
-	destinationExists, err := g.Exists(destinationPath)
+	destinationExists, err := Exists(destinationPath)
 	if err != nil {
 		return err
 	}
@@ -264,11 +257,11 @@ func (g *Goff) Copy(sourcePath, destinationPath string) error {
 }
 
 // Move moves a file
-func (g *Goff) Move(sourcePath, destinationPath string) error {
-	return g.Rename(sourcePath, destinationPath)
+func Move(sourcePath, destinationPath string) error {
+	return Rename(sourcePath, destinationPath)
 }
 
 // Stat returns stat of a file
-func (g *Goff) Stat(path string) (os.FileInfo, error) {
+func Stat(path string) (os.FileInfo, error) {
 	return os.Stat(path)
 }
