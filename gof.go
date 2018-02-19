@@ -111,7 +111,7 @@ func FileExists(path string) (bool, error) {
 }
 
 // DirectoryExists returns true if the path exists
-func DirectoryExists(path, content string) (bool, error) {
+func DirectoryExists(path string) (bool, error) {
 	return IsDirectory(path)
 }
 
